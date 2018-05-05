@@ -43,3 +43,12 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+
+gem 'pry', '~> 0.10.4'
+
+# Serialize objects in json
+gem 'active_model_serializers', '~> 0.10.7'
+
+#cors
+gem 'rack-cors', '~> 1.0', '>= 1.0.2'
