@@ -1,6 +1,6 @@
 # For performing operations on book model
 class BookService
-  attr_reader :title, :description, :author, :book
+  attr_reader :title, :description, :author
 
   def initialize(params)
     @title = params[:title]
@@ -11,7 +11,7 @@ class BookService
   def save
     @book = Book.new(book_create_attributes)
     if @book.save
-      true
+      @book
     else
       raise 'error saving book'
     end
@@ -21,9 +21,9 @@ class BookService
 
   def book_create_attributes
     {
-      title: title,
-      description: description,
-      author: author
+        title: title,
+        description: description,
+        author: author
     }
   end
 end
