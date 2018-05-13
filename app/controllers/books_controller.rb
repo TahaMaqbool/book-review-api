@@ -43,7 +43,8 @@ class BooksController < ApplicationController
     params.permit(
         :title,
         :description,
-        :author
+        :author,
+        :user_id
     )
   end
 
