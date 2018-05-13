@@ -1,4 +1,5 @@
 DeviseTokenAuth.setup do |config|
+  config.secret_key = 'b5754d198a296238df07a29a95b37ada42f327a4cad0033e4a0a6432b71bb7d0fea8ff78431be5b736157e2400878c4863f30e468f0425fffb7cd7926761dcd0'
   # By default the authorization headers will change after each request. The
   # client is responsible for keeping track of the changing tokens. Change
   # this to false to prevent the Authorization header from changing after
