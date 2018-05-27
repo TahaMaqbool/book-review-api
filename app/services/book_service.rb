@@ -14,7 +14,7 @@ class BookService
     if @book.save
       @book
     else
-      raise 'error saving book'
+      raise Error::CreateBookError
     end
   end
 

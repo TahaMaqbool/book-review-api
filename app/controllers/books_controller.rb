@@ -10,11 +10,7 @@ class BooksController < ApplicationController
 
   def create
     book = BookService.new(book_params).save
-    if book
-      render json: book, status: :created
-    else
-      render json: {error: 'unable to save book'}, status: :bad_request
-    end
+    render json: book, status: :created if book
   end
 
   def show
@@ -25,7 +21,7 @@ class BooksController < ApplicationController
     if @book.update(book_params)
       render status: :no_content if @book.update(book_params)
     else
-      render json: {error: 'unable to update book'}, status: :bad_request
+      render json: {error: 'unable to update book information'}, status: :bad_request
     end
   end
 
