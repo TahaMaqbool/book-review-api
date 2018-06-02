@@ -1,11 +1,12 @@
 # For performing operations on book model
 class BookService
-  attr_reader :title, :description, :author, :user_id
+  attr_reader :title, :description, :author, :category_id, :user_id
 
   def initialize(params)
     @title = params[:title]
     @description = params[:description]
     @author = params[:author]
+    @category_id = params[:category_id]
     @user_id = params[:user_id]
   end
 
@@ -25,7 +26,8 @@ class BookService
         title: title,
         description: description,
         author: author,
-        user_id: user_id
+        user_id: user_id,
+        category_id: category_id
     }
   end
 end
