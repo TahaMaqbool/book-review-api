@@ -34,7 +34,9 @@ module Api
       private
 
       def books
-        @books = Book.all.order(created_at: :desc)
+        @books = Book
+                 .category(params[:category])
+                 .order(created_at: :desc)
       end
 
       def book

@@ -15,6 +15,11 @@ gem 'omniauth'
 gem 'puma', '~> 3.11'
 
 gem "paperclip", "~> 6.0.0"
+
+
+# Google cloud storage
+gem 'fog', '~> 2.0'
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
