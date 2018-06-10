@@ -2,3 +2,8 @@ development:
   provider: Google
   google_storage_access_key_id: GOOGHH7PFHRVMIECAXE3FOPB
   google_storage_secret_access_key: 6eniBMiHAR2LymH+47+Xxb59Fx2CDOkTCx/hBrZf
+
+production:
+  provider: Google
+  google_storage_access_key_id: GOOGHH7PFHRVMIECAXE3FOPB
+  google_storage_secret_access_key: 6eniBMiHAR2LymH+47+Xxb59Fx2CDOkTCx/hBrZf
