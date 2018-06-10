@@ -49,7 +49,8 @@ module Api
             :description,
             :author,
             :user_id,
-            :category_id
+            :category_id,
+            :book_img
         )
       end
     end
