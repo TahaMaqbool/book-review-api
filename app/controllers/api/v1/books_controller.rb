@@ -21,7 +21,7 @@ module Api
 
       def update
         if @book.update(book_params)
-          render status: :no_content if @book.update(book_params)
+          render status: :no_content
         else
           render json: {error: 'unable to update book information'}, status: :bad_request
         end
