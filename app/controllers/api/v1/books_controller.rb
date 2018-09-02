@@ -4,6 +4,7 @@ module Api
     class BooksController < ApplicationController
 
       before_action :books, only: :index
+      before_action :get_user, only: :create
       before_action :book, only: [:show, :update, :destroy]
 
       def index
@@ -12,7 +13,10 @@ module Api
 
       def create
         book = BookService.new(book_params).save
-        render json: book, status: :created if book
+        if book
+          UserMailer.pending_approval(get_user).deliver_now
+          render json: book, status: :created
+        end
       end
 
       def show
@@ -41,6 +45,10 @@ module Api
 
       def book
         @book = Book.find(params[:id]) if params[:id].present?
+      end
+
+      def get_user
+        User.find(book_params[:user_id])
       end
 
       def book_params
