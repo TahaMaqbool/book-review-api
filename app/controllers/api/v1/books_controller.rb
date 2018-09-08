@@ -12,11 +12,8 @@ module Api
       end
 
       def create
-        book = BookService.new(book_params).save
-        if book
-          UserMailer.pending_approval(get_user).deliver_now
-          render json: book, status: :created
-        end
+        book = Book.create(book_params)
+        render json: book, status: :created if book
       end
 
       def show
@@ -40,11 +37,14 @@ module Api
       def books
         @books = Book
                  .category(params[:category])
+                 .approved
                  .order(created_at: :desc)
       end
 
       def book
-        @book = Book.find(params[:id]) if params[:id].present?
+        return if params[:id].blank?
+        @book = Book.find(params[:id])
+        @book.is_approved ? @book : not_found
       end
 
       def get_user

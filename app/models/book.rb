@@ -12,7 +12,10 @@ class Book < ApplicationRecord
                     url: "/images/:style/:basename.:extension"
   validates_attachment_content_type :book_img, content_type: /\Aimage\/.*\z/
 
+  after_create :notify
+
   scope :category, ->(name) { joins(:category).where('name = ?',name) if name.present? }
+  scope :approved, -> { where(is_approved: true) }
 
   def image_links
     {
@@ -22,4 +25,17 @@ class Book < ApplicationRecord
     }
   end
 
+  def self.create(book)
+    book = Book.new(book)
+    if book.save
+      book
+    else
+      raise Error::CreateBookError
+    end
+  end
+
+  def notify
+    UserMailer.pending_approval_user(User.find(self.user_id)).deliver_later(wait: 5.second)
+    UserMailer.pending_approval_admin(User.admin).deliver_later(wait: 5.second)
+  end
 end
