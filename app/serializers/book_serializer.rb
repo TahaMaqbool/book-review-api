@@ -1,6 +1,6 @@
 # To serialize in json
 class BookSerializer < ActiveModel::Serializer
-  attributes :id, :title, :description, :author, :user_id, :book_img, :category_id
+  attributes :id, :title, :description, :author, :user_id, :book_img, :category_id, :is_approved
 
   def book_img
     {

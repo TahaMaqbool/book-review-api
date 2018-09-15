@@ -3,9 +3,10 @@ module Api
   module V1
     class BooksController < ApplicationController
 
+      before_action :authenticate_api_v1_user!, only: [:create, :update, :destroy, :approve, :reject]
       before_action :books, only: :index
       before_action :get_user, only: :create
-      before_action :book, only: [:show, :update, :destroy]
+      before_action :book, only: [:show, :update, :destroy, :approve, :reject]
 
       def index
         render json: @books, status: :ok
@@ -30,6 +31,22 @@ module Api
 
       def destroy
         render status: :no_content if @book.destroy
+      end
+
+      def approve
+        if @book.update(is_approved: true)
+          render status: :no_content
+        else
+          render json: {error: 'unable to approve book'}, status: :bad_request
+        end
+      end
+
+      def reject
+        if @book.update(is_approved: false)
+          render status: :no_content
+        else
+          render json: {error: 'unable to reject book'}, status: :bad_request
+        end
       end
 
       private
