@@ -35,6 +35,7 @@ module Api
 
       def approve
         if current_user.admin && @book.update(is_approved: true)
+          UserMailer.book_approved(User.find(@book[:user_id])).deliver_later(wait: 1.minute)
           render status: :no_content
         else
           render json: {error: 'unable to approve book'}, status: :bad_request

@@ -12,4 +12,10 @@ class UserMailer < ApplicationMailer
     @url = 'http://example.com/login'
     mail(to: @admin.email, subject: 'Review Book For Approval')
   end
+
+  def book_approved(user)
+    @user = user
+    @url = 'http://example.com/login'
+    mail(to: @user.email, subject: 'Book Approved')
+  end
 end
