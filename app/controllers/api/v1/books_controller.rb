@@ -3,7 +3,7 @@ module Api
   module V1
     class BooksController < ApplicationController
 
-      before_action :authenticate_api_v1_user!, only: [:create, :update, :destroy, :approve, :reject]
+      skip_before_action :authenticate_api_v1_user!, only: [:index, :show], raise: false
       before_action :books, only: :index
       before_action :get_user, only: :create
       before_action :book, only: [:show, :update, :destroy, :approve, :reject]
@@ -34,7 +34,7 @@ module Api
       end
 
       def approve
-        if @book.update(is_approved: true)
+        if current_user.admin && @book.update(is_approved: true)
           render status: :no_content
         else
           render json: {error: 'unable to approve book'}, status: :bad_request
@@ -42,7 +42,7 @@ module Api
       end
 
       def reject
-        if @book.update(is_approved: false)
+        if current_user.admin && @book.update(is_approved: false)
           render status: :no_content
         else
           render json: {error: 'unable to reject book'}, status: :bad_request
@@ -52,16 +52,23 @@ module Api
       private
 
       def books
-        @books = Book
-                 .category(params[:category])
-                 .approved
-                 .order(created_at: :desc)
+        if request.headers['UID'].present?
+          @books = Book
+                       .category(params[:category])
+                       .order(created_at: :desc)
+          @books = @books.approved  unless current_user.admin
+        else
+          @books = Book
+                       .category(params[:category])
+                       .approved
+                       .order(created_at: :desc)
+        end
       end
 
       def book
         return if params[:id].blank?
         @book = Book.find(params[:id])
-        @book.is_approved ? @book : not_found
+        @book.is_approved || current_user&.admin ? @book : not_found
       end
 
       def get_user

@@ -35,7 +35,7 @@ class Book < ApplicationRecord
   end
 
   def notify
-    UserMailer.pending_approval_user(User.find(self.user_id)).deliver_later(wait: 5.second)
-    UserMailer.pending_approval_admin(User.admin).deliver_later(wait: 5.second)
+    UserMailer.pending_approval_user(User.find(self.user_id)).deliver_later(wait: 1.minute)
+    UserMailer.pending_approval_admin(User.admin).deliver_later(wait: 1.minute)
   end
 end
