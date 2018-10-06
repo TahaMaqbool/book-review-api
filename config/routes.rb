@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       resources :books do
         put :approve, on: :member
         put :reject, on: :member
+        resources :reviews
       end
       resources :categories
     end

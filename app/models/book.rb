@@ -1,6 +1,7 @@
 class Book < ApplicationRecord
   belongs_to :user
   belongs_to :category
+  has_many :reviews
 
   has_attached_file :book_img,
                     styles: { medium: "300x300>", thumb: "100x100>" },

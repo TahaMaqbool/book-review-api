@@ -3,6 +3,7 @@ module Api
   module V1
     class BooksController < ApplicationController
 
+      before_action :authenticate_api_v1_user!
       skip_before_action :authenticate_api_v1_user!, only: [:index, :show], raise: false
       before_action :books, only: :index
       before_action :get_user, only: :create
@@ -57,7 +58,7 @@ module Api
           @books = Book
                        .category(params[:category])
                        .order(created_at: :desc)
-          @books = @books.approved  unless current_user.admin
+          @books = @books.approved  unless current_user&.admin
         else
           @books = Book
                        .category(params[:category])
