@@ -18,4 +18,8 @@ class BookSerializer < ActiveModel::Serializer
     }
   end
 
+  def reviews
+    object.reviews.order(created_at: :desc)
+  end
+
 end
