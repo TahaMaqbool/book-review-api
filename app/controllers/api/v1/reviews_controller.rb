@@ -14,7 +14,7 @@ module Api
       end
 
       def create
-        review = @book.reviews.create(review_params)
+        review = @book.reviews.create(review_params.merge(user_id: current_user.id))
         render json: review, status: :created and return
         raise Error::CreateReviewError
       end
@@ -24,15 +24,19 @@ module Api
       end
 
       def update
-        @review.update(review_params)
-        render status: :no_content and return
+        if authorized_user
+          @review.update(review_params)
+          render json: @review, status: :ok and return
+        end
         render json: { error: 'unable to update review' }, status: :bad_request
       end
 
       def destroy
-        @review.destroy
-        render status: :no_content and return
-        render json: { error: 'unable to delete review' }, status: :bad_request
+        if authorized_user
+          @review.destroy
+          render status: :no_content and return
+        end
+        render json: { errors: ['unable to delete review'] }, status: :bad_request
       end
 
       private
@@ -49,8 +53,12 @@ module Api
         @review = Review.find(params[:id]) || not_found
       end
 
+      def authorized_user
+        @review.user == current_user || current_user.admin
+      end
+
       def review_params
-        params.permit(:comment, :rating, :user_id)
+        params.permit(:comment, :rating)
       end
     end
   end
