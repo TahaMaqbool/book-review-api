@@ -14,6 +14,7 @@ class BookSerializer < ActiveModel::Serializer
 
   def book_img
     {
+      name: object.book_img.original_filename,
       url: object.image_links
     }
   end
