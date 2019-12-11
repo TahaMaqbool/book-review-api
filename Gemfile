@@ -62,7 +62,7 @@ gem 'pry', '~> 0.10.4'
 gem 'active_model_serializers', '~> 0.10.7'
 
 #cors
-gem 'rack-cors', '~> 1.0', '>= 1.0.2'
+gem 'rack-cors', '~> 1.0'
 
 # A Ruby gem for communicating with the Twilio API and generating TwiML
 gem 'twilio-ruby', '~> 5.30.0'
