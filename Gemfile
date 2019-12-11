@@ -63,3 +63,15 @@ gem 'active_model_serializers', '~> 0.10.7'
 
 #cors
 gem 'rack-cors', '~> 1.0', '>= 1.0.2'
+
+# A Ruby gem for communicating with the Twilio API and generating TwiML
+gem 'twilio-ruby', '~> 5.30.0'
+
+# Background Job
+gem 'sidekiq'
+
+# Scheduler / Cron for Sidekiq jobs
+gem 'sidekiq-cron'
+
+# Simple HTTP and REST client for Ruby, inspired by microframework syntax for specifying actions.
+gem 'rest-client'
