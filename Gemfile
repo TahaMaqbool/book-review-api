@@ -12,7 +12,7 @@ gem 'pg', '~> 0.18.4'
 gem 'devise_token_auth'
 gem 'omniauth'
 # Use Puma as the app server
-gem 'puma', '~> 3.11'
+gem 'puma', '~> 3.12'
 
 gem "paperclip", "~> 6.0.0"
 
